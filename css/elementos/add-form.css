@@ -1,0 +1,31 @@
+.window {
+	height: 100vh;
+	left: 0;
+	position: absolute;
+	top: 0;
+	transition: top 0.5s;
+}
+
+.window--hidden {
+	top: 100vh;
+}
+
+.window__header {
+	background-color: var(--primary-bg);
+}
+
+.window__h1 {
+	color: var(--primary-font);
+	font-size: 24px;
+	margin: 15px 0;
+}
+
+.window__icon {
+	margin-right: 10px;
+}
+
+.add-form__form {
+	background-color: var(--secondary-bg);
+	padding-bottom: calc(2.5vh + 58px);
+	padding-top: 2.5vh;
+}

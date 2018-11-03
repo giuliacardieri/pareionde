@@ -1,0 +1,32 @@
+.nav-elem {
+	background-color: var(--nav-bg);
+	border-top: 1px solid var(--nav-border);
+	bottom: 0;
+	position: fixed;
+}
+
+.nav__nav-icon {
+	color: var(--nav-font);
+	font-size: 22px;
+}
+
+.nav__a {
+	display: flex;
+	flex-direction: column;
+}
+
+.nav__a.active,
+.nav-pills .nav-link.active, 
+.nav-pills .show>.nav-link {
+	background-color: var(--nav-bg);
+}
+
+.nav__a.active .nav__nav-icon,
+.nav__a.active .nav__nav-text  {
+	color: var(--primary-bg);
+}
+
+.nav__nav-text {
+	color: var(--nav-font);
+	font-size: 13px;
+}

@@ -1,0 +1,25 @@
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active {
+	background-color: var(--aux-bg);
+	border-color: var(--aux-bg);
+}
+
+.btn-rounded {
+	border-radius: 100%;
+}
+
+.btn-add {
+	bottom: calc(58px + 15px);
+	padding: 10px;
+	position: fixed;
+	right: 15px;
+	z-index: 2;
+}
+
+.btn-icon {
+	font-size: 18px;
+	line-height: 24px;
+	width: 24px;
+}

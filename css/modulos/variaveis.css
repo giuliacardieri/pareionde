@@ -1,0 +1,13 @@
+:root {
+	--primary-bg: #5f3096;
+	--secondary-bg: #FDFDFE;
+	--aux-bg: #7941bf;
+
+	--nav-bg: #fff;
+	--nav-border: rgba(0,0,0,.125);
+	--nav-font: #616161;
+
+	--primary-font: #fafafa;
+	--secondary-font: #370470;
+	--aux-font: #717171;
+}
