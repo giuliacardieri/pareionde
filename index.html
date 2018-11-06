@@ -21,46 +21,107 @@
   <link rel="stylesheet" type="text/css" href="css/elementos/buttons.css">
   <link rel="stylesheet" type="text/css" href="css/elementos/main.css">
   <link rel="stylesheet" type="text/css" href="css/elementos/add-form.css">
+  <link rel="stylesheet" type="text/css" href="css/elementos/accordion.css">
   <link rel="stylesheet" type="text/css" href="css/elementos/details.css">
   <link rel="stylesheet" type="text/css" href="css/elementos/footer.css">
 
-  <script id="home-template" type="text/x-handlebars-template"> 
-    <section class="main__card-wrapper col-md">
-      <div class="row">
-        {{#each this}}
-        <div class="card col-md-4" id="{{ id }}">
-          <div class="card-body">
-            <h5 class="card-title">{{ nome }}</h5>
-            <p class="card-text"><i class="card-icon fas fa-tv"></i>Temporada {{ temporada}} - Episódio {{ episodio }}</p>
-            <p class="card-text" hidden><i class="card-icon fas fa-calendar"></i>Assistida por último em {{ data }}</p>
-            <p class="card-text" hidden><i class="card-icon fas fa-info"></i>{{ comentario }}</p>
-            <p class="card-text" hidden><i class="card-icon fas fa-video"></i>{{ tipo }}</p>
-            <p class="card-text"><i class="card-icon fas fa-grin-hearts"></i>{{ motivacao }}/10</p>
-            <a href="#" class="btn btn-primary">Marcar como favorita</a>
-          </div>
-        </div>
-        {{/each}}
+  <script id="cards" type="text/x-handlebars-template"> 
+    {{#each this}}
+    <div class="card card--serie col-md-4" id="{{ id }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ nome }}</h5>
+        <p class="card-text"><i class="card-icon fas fa-tv"></i>Temporada {{ temporada}} - Episódio {{ episodio }}</p>
+        <p class="card-text" hidden><i class="card-icon far fa-calendar-alt"></i>Assistida por último em {{ data }}</p>
+        <p class="card-text" hidden><i class="card-icon far fa-comment"></i>{{ comentario }}</p>
+        <p class="card-text" hidden><i class="card-icon fas fa-video"></i>{{ tipo }}</p>
+        <p class="card-text"><i class="card-icon far fa-laugh"></i>{{ motivacao }}/10</p>
+        {{#if favorita}}
+        <p class="card-text"><i class="card-icon far fa-heart"></i>Favorita</p>
+        {{/if}}
       </div>
-    </section>
+    </div>
+    {{/each}}
+  </script>
+
+  <script id="meudesign-series" type="text/x-handlebars-template">
+    <ul class="accordion__ul">
+      <li class="accordion__li">
+        <input type="checkbox" id="temporada">
+        <label for="temporada">Temporada</label>
+      </li>
+      <li class="accordion__li">
+        <input type="checkbox" id="episodio">
+        <label for="episodio">Episódio</label>
+      </li>
+      <li class="accordion__li">
+        <input type="checkbox" id="data" ariadescribedby="dataExplanation">
+        <label class="accordion__label accordion__label--nomargin" for="data">Assistido por último em</label>
+        <small id="dataExplanation" class="accordion__small text-muted">Data em que a série foi assistida pela última vez.</small>
+      </li>
+      <li class="accordion__li">
+        <input type="checkbox" id="tipo" ariadescribedby="tipoExplanation">
+        <label class="accordion__label accordion__label--nomargin" for="tipo">Como você assiste?</label>
+        <small id="tipoExplanation" class="accordion__small text-muted">Plataforma que você costuma assistir a série.</small>
+      </li>
+      <li class="accordion__li">
+        <input type="checkbox" id="motivacao" ariadescribedby="motivacaoExplanation">
+        <label class="accordion__label accordion__label--nomargin" for="motivacao">Motivação para continuar assistindo</label>
+        <small id="motivacaoExplanation" class="accordion__small text-muted">Valor entre 0-10 que indica o quanto você quer continuar assistindo essa série.</small>
+      </li>
+      <li class="accordion__li">
+        <input type="checkbox" id="comentario" ariadescribedby="comentarioExplanation">
+        <label class="accordion__label accordion__label--nomargin" for="comentario">Por que você parou de assistir?</label>
+        <small id="comentarioExplanation" class="accordion__small text-muted">Comentário sobre o motivo de você parar de assistir a série.</small>
+      </li>
+    </ul>
+  </script>
+
+  <script id="meudesign-lista" type="text/x-handlebars-template">
+    <ul class="list-group">
+      {{#if this}}
+        {{#each this}}
+          <li class="list-group-item">
+          {{ nome }}
+          <span class="accordion__span accordion__btn-remove" role="button" data-id="{{ id }}">
+            <i class="fas fa-times accordion__icon"></i>
+            Apagar
+          </span>
+        </li>
+        {{/each}}
+      {{else}}
+      <p class="accordion__p accordion__p--empty">Ops! Você ainda não adicionou nenhuma plataforma</p>
+      {{/if}}
+    </ul>
+    <form class="accordion__form" hidden>
+      <div class="form-group">
+        <label for="nova">Nova plataforma</label>
+        <input id="nova" name="nova" class="form-control" type="text" placeholder="Nova plataforma" required>
+      </div>
+    <button class="btn btn-primary btn-save-plataforma" type="submit" hidden>Salvar</button>
+    </form>
+    <button class="btn btn-primary btn-add-plataforma">Adicionar plataforma</button>
   </script>
 
   <script id="details-template" type="text/x-handlebars-template"> 
     <h2 class="details__h2">{{ nome }}</h2>
-    <p class="details__p"><i class="details__icon fas fa-tv"></i>Temporada {{ temporada}}</p>
-    <p class="details__p"><i class="details__icon fas fa-tv"></i>Episódio {{ episodio }}</p>
+    <p class="details__p"><i class="details__icon fas fa-tv"></i>Temporada {{ temporada}} - Episódio {{ episodio }}</p>
     {{#if data}}
-    <p class="details__p"><i class="details__icon fas fa-calendar"></i>Assistida por último em {{ data }}</p>
-    {{/if}}
-    {{#if comentario}}
-    <p class="details__p"><i class="details__icon fas fa-info"></i>Por que você parou de assistir? {{ comentario }}</p>
+    <p class="details__p"><i class="details__icon far fa-calendar-alt"></i>Assistida por último em {{ data }}</p>
     {{/if}}
     {{#if tipo}}
     <p class="details__p"><i class="details__icon fas fa-video"></i>{{ tipo }}</p>
     {{/if}}
-    <p class="details__p"><i class="details__icon fas fa-grin-hearts"></i>Motivação: {{ motivacao }}/10</p>
-    {{#if favorita}}
-    <p class="details__p"><i class="details__icon fas fa-star"></i>Marcada como favorita</p>
+    <p class="details__p"><i class="details__icon far fa-laugh"></i>Motivação: {{ motivacao }}/10</p>
+    {{#if comentario}}
+    <p class="details__p"><i class="details__icon far fa-comment"></i>{{ comentario }}</p>
     {{/if}}
+    {{#if favorita}}
+    <p class="details__p"><i class="details__icon fas fa-heart"></i>Série favorita</p>
+    <button class="btn btn-primary btn-remove-fav" data-id="{{ id }}">Remover das favoritas</button>
+    {{else}}
+    <button class="btn btn-primary btn-fav" data-id="{{ id }}">Marcar como favorita</button>
+    {{/if}}
+    <button class="btn btn-primary btn-editar" hidden>Editar</button>
   </script>
 
 </head>
@@ -75,20 +136,61 @@
 
   <main class="main">
     <div class="row">
-      <section class="main__empty-wrapper col-md">
+      <section class="main__wrapper main__empty-wrapper col-md">
         <i class="main__icon far fa-frown"></i>
         <p class="main__p">Opa! Você ainda não adicionou séries.</p>
       </section>
-      <section class="main__favorites-wrapper col-md" hidden></section>
-      <section class="main__meudesign-wrapper col-md" hidden></section>
+      <section class="main__wrapper main__empty-favorite-wrapper col-md" hidden>
+        <i class="main__icon far fa-frown"></i>
+        <p class="main__p">Opa! Você ainda não marcou séries como favoritas</p>
+      </section>
+      <section class="main__wrapper main__home-wrapper col-md" hidden></section>
+      <section class="main__wrapper main__favoritos-wrapper col-md" hidden></section>
+      <section class="main__wrapper main__meudesign-wrapper col-md" hidden>
+        <div class="accordion" id="accordion_meudesign">
+          <div class="card">
+            <div class="card-header" id="campos_series">
+              <h5 class="accordion__h5">
+                <button class="btn btn-link accordion__btn" type="button" data-toggle="collapse" data-target="#campos_series-collapse" aria-expanded="true" aria-controls="campos_series-collapse">
+                  Informações de cada série
+                </button>
+              </h5>
+            </div>
+
+            <div id="campos_series-collapse" class="collapse show" aria-labelledby="campos_series" data-parent="#campos_series">
+              <div class="card-body">
+                  <p class="accordion__p">Escolha quais informações de série deseja visualizar e adicionar para cada série</p>
+                  <section class="accordion__series-wrapper"></section>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="lista_tipo">
+              <h5 class="accordion__h5">
+                <button class="btn btn-link accordion__btn collapsed" type="button" data-toggle="collapse" data-target="#lista_tipo-collapse" aria-expanded="false" aria-controls="lista_tipo-collapse">
+                  Lista de plataformas
+                </button>
+              </h5>
+            </div>
+            <div id="lista_tipo-collapse" class="collapse" aria-labelledby="lista_tipo" data-parent="#lista_tipo">
+              <div class="card-body">
+                <p class="accordion__p">Liste as plataformas que você usa para assistir séries</p>
+                <section class="accordion__lista-wrapper"></section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
+
+  <button class="btn btn-primary btn-rounded btn-add"><i class="btn-icon fas fa-plus"></i></button>
 
   <div class="row">
     <section class="window window__details window--hidden col-md" hidden>
       <div class="row">
         <header class="window__header col-md">
-          <h1 class="window__h1"><i class="window__icon fas fa-chevron-left"></i>Detalhes da Série</h1>
+          <h1 class="window__h1"><i class="window__icon window__icon--details fas fa-chevron-left"></i>Detalhes da Série</h1>
         </header>
       </div>
       <div class="row">
@@ -101,7 +203,7 @@
     <section class="window window__add-form window--hidden col-md" hidden>
       <div class="row">
         <header class="window__header col-md">
-          <h1 class="window__h1"><i class="window__icon fas fa-chevron-left"></i>Adicionar nova série</h1>
+          <h1 class="window__h1"><i class="window__icon window__icon--add-form fas fa-chevron-left"></i>Adicionar nova série</h1>
         </header>
       </div>
       <div class="row">
@@ -112,11 +214,11 @@
           </div>
           <div class="form-group">
             <label for="temporada">Temporada*</label>
-            <input type="text" name="temporada" class="form-control" id="temporada" placeholder="Temporada" required>
+            <input type="number" name="temporada" class="form-control" id="temporada" placeholder="Temporada" required>
           </div>
           <div class="form-group">
             <label for="episodio">Episódio*</label>
-            <input type="text" name="episodio" class="form-control" id="episodio" placeholder="Episódio" required>
+            <input type="number" name="episodio" class="form-control" id="episodio" placeholder="Episódio" required>
           </div>
           <div class="form-group">
             <label for="data">Assistida por último em</label>
@@ -170,27 +272,23 @@
     </section>
   </div>
 
-  <section class="series-info"></section>
-
-  <button class="btn btn-primary btn-rounded btn-add"><i class="btn-icon fas fa-plus"></i></button>
-
   <div class="row">
     <nav class="nav-elem col-md">
       <ul class="nav__ul nav nav-pills nav-justified">
         <li class="nav__li nav-item">
-          <a class="nav__a nav-link active" href="#home">
+          <a class="nav__a nav-link active" href="#home" id="home">
             <i class="nav__nav-icon fas fa-home"></i>
             <span class="nav__nav-text">Home</span>
           </a>
         </li>
         <li class="nav__li nav-item">
-          <a class="nav__a nav-link" href="#favoritos">
+          <a class="nav__a nav-link" href="#favoritos" id="favoritos">
             <i class="nav__nav-icon fas fa-star"></i>
             <span class="nav__nav-text">Favoritos</span>
           </a>
         </li>
         <li class="nav__li nav-item">
-          <a class="nav__a nav-link" href="#meudesign">
+          <a class="nav__a nav-link" href="#meudesign" id="meudesign">
             <i class="nav__nav-icon fas fa-palette"></i>
             <span class="nav__nav-text">Meu Design</span>
           </a>
@@ -208,13 +306,14 @@
 <script src="js/libraries/bootstrap.min.js"></script>
 <script src="js/libraries/handlebars.js"></script>
 
-<script src="js/db.js"></script>
-<script src="js/window.js"></script>
-<script src="js/form.js"></script>
-<script src="js/cards.js"></script>
 <script src="js/pwa-eu/gerenciamento.js"></script>
 <script src="js/pwa-eu/conexao.js"></script>
-<script src="js/pwa-eu/motoradaptacao.js"></script>
+
+<script src="js/db.js"></script>
+<script src="js/navigation.js"></script>
+<script src="js/window.js"></script>
+<script src="js/form.js"></script>
+<script src="js/details.js"></script>
 
 <script type="text/javascript">
     if('serviceWorker' in navigator) {

@@ -1,3 +1,5 @@
+/* pega os dados do form e muda pro formato necessário do JSON do BD */
+/* checa se os dados são válidos antes de submeter, se sim ele coloca no BD e mostra novamente a lista do Home */
 const submitForm = function submitForm(data) {
   let final_data = {}
   let old_db = []
@@ -31,9 +33,23 @@ const submitForm = function submitForm(data) {
  		final_data.id = 0
  	}
 
-  	old_db.push(final_data)
+  old_db.push(final_data)
 
-  setDB(old_db)
+  if (formValid(final_data)) {
+    setDB(old_db)
+    loadHomeTemplate()
+    hideWindow('add-form')
+    $('.add-form__form').trigger('reset')
+  }
+}
+
+/* checa se o formulário é válido (se os elementos com required não estão vazios) */
+const formValid = function formValid(data) {
+  console.log(JSON.stringify(data))
+  if (data.nome.trim().length === 0 || data.temporada.trim().length === 0 
+    || data.episodio.trim().length === 0 || data.motivacao.trim().length === 0)
+    return false
+  return true
 }
 
 $(function(){
@@ -48,7 +64,7 @@ $(function(){
     return false
   })
 
-  $('.add-form__icon, .btn-save').on('click', function() {
+  $('.window__icon--add-form').on('click', function() {
     hideWindow('add-form')
   })
 

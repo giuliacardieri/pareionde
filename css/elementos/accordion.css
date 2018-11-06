@@ -1,0 +1,42 @@
+.accordion__btn, .accordion__btn:hover {
+	color: var(--secondary-font);
+	font-weight: 500;
+}
+
+.accordion__span {
+	color: var(--aux-font);
+	font-size: 13px;
+	line-height: 1.6;
+	position: absolute;
+	right: 10px;
+}
+
+.accordion__p--empty {
+	color: var(--aux-font);
+}
+
+.accordion__form {
+	margin-top: 15px;
+}
+
+.accordion__ul {
+	margin: 0;
+	padding: 0;
+}
+
+.accordion__li {
+	list-style: none;
+}
+
+.accordion__label--nomargin {
+	margin-bottom: 0;
+}
+
+.accordion__small {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.btn-add-plataforma {
+	margin-top: 10px;
+}

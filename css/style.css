@@ -3,7 +3,7 @@ body {
 	color: var(--secondary-font);
 }
 
-.card {
+.card--serie {
 	margin-bottom: 10px;
 }
 

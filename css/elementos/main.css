@@ -2,7 +2,8 @@
 	padding: 2.5vh 0;
 }
 
-.main__empty-wrapper {
+.main__empty-wrapper,
+.main__empty-favorite-wrapper {
 	text-align: center;
 }
 
