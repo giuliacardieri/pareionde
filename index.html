@@ -128,14 +128,21 @@
 
   <script id="details-template" type="text/x-handlebars-template"> 
     <h2 class="details__h2">{{ nome }}</h2>
-    <p class="details__p"><i class="details__icon fas fa-tv"></i>Temporada {{ temporada}} - Episódio {{ episodio }}</p>
+    {{#if temporada}}
+    <p class="details__p"><i class="details__icon fas fa-tv"></i>Temporada {{ temporada}}</p>
+    {{/if}}
+    {{#if episodio}}
+    <p class="details__p"><i class="details__icon fas fa-tv"></i>Episódio {{ episodio }}</p>
+    {{/if}}
     {{#if data}}
     <p class="details__p"><i class="details__icon far fa-calendar-alt"></i>Assistida por último em {{ data }}</p>
     {{/if}}
     {{#if tipo}}
     <p class="details__p"><i class="details__icon fas fa-video"></i>{{ tipo }}</p>
     {{/if}}
+    {{#if motivacao}}
     <p class="details__p"><i class="details__icon far fa-laugh"></i>Motivação: {{ motivacao }}/10</p>
+    {{/if}}
     {{#if comentario}}
     <p class="details__p"><i class="details__icon far fa-comment"></i>{{ comentario }}</p>
     {{/if}}
