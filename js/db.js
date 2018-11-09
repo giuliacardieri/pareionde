@@ -135,6 +135,17 @@ const loadDesignSeriesTemplate = function loadDesignListaTemplate() {
   $('.accordion__series-wrapper').html(html)
 }
 
+const loadFormTemplate = function loadFormTemplate() {
+  let model,
+  template,
+  html
+  
+  model = getModel().opcoes
+  template = Handlebars.compile($('#form').html())
+  html = template(model)
+  $('.form__wrapper').html(html)
+}
+
 $(function(){
 	if (getDB())
 		loadHomeTemplate()

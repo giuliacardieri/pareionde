@@ -45,6 +45,42 @@ const addPlatform = function addPlatform(data) {
   return true
 }
 
+const hideCampo = function hideCampo(id) {
+  let old_model = getModel(),
+  new_model_opcoes = [],
+  new_model = new Object()
+
+  for (let i = 0; i < Object.keys(old_model.opcoes).length; i++) {
+    if (old_model.opcoes[i].id == id)
+      old_model.opcoes[i].ativo = false
+    new_model_opcoes.push(old_model.opcoes[i])
+  }
+
+  new_model.opcoes = new_model_opcoes
+  new_model.lista_tipos = old_model.lista_tipos
+
+  changeModel(new_model)
+}
+
+const showCampo = function showCampo(id) {
+  let old_model = getModel(),
+  new_model_opcoes = [],
+  new_model = new Object()
+
+
+
+  for (let i = 0; i < Object.keys(old_model.opcoes).length; i++) {
+    if (old_model.opcoes[i].id == id)
+      old_model.opcoes[i].ativo = true
+    new_model_opcoes.push(old_model.opcoes[i])
+  }
+
+  new_model.opcoes = new_model_opcoes
+  new_model.lista_tipos = old_model.lista_tipos
+
+  changeModel(new_model)
+}
+
 $(function(){
 	$('.main__meudesign-wrapper').on('click', '.accordion__btn-remove', function() {
 		let id = $(this).attr('data-id')
@@ -65,5 +101,14 @@ $(function(){
 			$('.btn-add-plataforma').removeAttr('hidden')
     	return false
     }
+  })
+
+  $('.main__meudesign-wrapper').on('change', '.accordion__checkbox', function() {
+    let campo = $(this).attr('data-campo')
+
+    if ($(this).prop('checked'))
+      showCampo($(this).attr('id'))
+    else
+      hideCampo($(this).attr('id'))
   })
 })

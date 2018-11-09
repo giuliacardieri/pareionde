@@ -1,27 +1,16 @@
 /* pega os dados do form e muda pro formato necessário do JSON do BD */
 /* checa se os dados são válidos antes de submeter, se sim ele coloca no BD e mostra novamente a lista do Home */
 const submitForm = function submitForm(data) {
-  let final_data = {}
-  let old_db = []
+  let final_data = {},
+  old_db = [],
+  aux
 
-  final_data.nome = data[0].value
-  final_data.temporada = data[1].value
-  final_data.episodio = data[2].value
-  final_data.tipo = data[4].value
-  final_data.motivacao = data[5].value
-  final_data.comentario = data[6].value
-
-  if (!data[3].value)
-    final_data.data = null
-  else
-    final_data.data = data[3].value
-
-  if (data[4].value === '')
-    final_data.tipo = null
-  else
-    final_data.tipo = data[4].value
+  for (let i = 0; i < data.length; i++) {
+    aux = data[i].name
+    final_data[aux] = data[i].value
+  }
   
-  if (data.length > 7)
+  if (final_data.favorita)
   	final_data.favorita = 1
  	else
  		final_data.favorita = null
@@ -45,9 +34,7 @@ const submitForm = function submitForm(data) {
 
 /* checa se o formulário é válido (se os elementos com required não estão vazios) */
 const formValid = function formValid(data) {
-  console.log(JSON.stringify(data))
-  if (data.nome.trim().length === 0 || data.temporada.trim().length === 0 
-    || data.episodio.trim().length === 0 || data.motivacao.trim().length === 0)
+  if (data.nome.trim().length === 0)
     return false
   return true
 }
@@ -56,6 +43,8 @@ $(function(){
 
   $('.btn-add').on('click', function() {
     showWindow('add-form')
+    loadFormTemplate()
+    loadListaTemplate()
   })
 
   $('.add-form__form').on('submit', function(e) {

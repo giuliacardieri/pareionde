@@ -29,3 +29,12 @@
 	padding-bottom: calc(2.5vh + 58px);
 	padding-top: 2.5vh;
 }
+
+.episodio--hidden,
+.temporada--hidden,
+.data--hidden,
+.tipo--hidden,
+.motivacao--hidden,
+.comentario--hidden {
+	display: none;
+}
