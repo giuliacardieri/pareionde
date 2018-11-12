@@ -1,11 +1,11 @@
 {
-  "name": "my-new-pwa",
-  "short_name": "my-new-pwa",
+  "name": "Parei Onde?",
+  "short_name": "Parei Onde?",
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#fff",
-  "theme_color": "#000",
+  "theme_color": "#5f3096",
   "icons": [
     {
       "src": "/assets/icons/icon.png",
